@@ -1,59 +1,50 @@
+// Require files
+var basicCards = require("./basicCard.js");
+var clozeCards = require("./clozeCard.js");
+var viewCards = require("./viewCard.js");
 var inquirer = require('inquirer');
 var fs = require('fs');
-var admin = require('./admin.js');
-var moment = require('moment');
-var weatherApp = require("./weather.js");
-var weather = require("weather-js");
 
 // User constructor
-function BasicCard (front, back) {
+function basicCard (front, back) {
 	this.front = front;
 	this.back = back;
 }
 
-function ClozeCard (text, cloze)
-
-User.prototype.deletedText = function () {
-	fs.appendFile('log.txt', "Name: " + this.name + " " + "Location: " + this.location + " " + "(" + moment().format('MMMM Do YYYY, h:mm:ss a') + ")" + ",\n" , function (err,data) {
-		console.log("log is updated");
-	});
-}
-
-//prompts for user or admin
+// Create or view cards
 var createCard = function () {
 	inquirer.prompt([
 		{
-			name:"create",
-			message: "Create card? (y/n)"
-		},
-	]).then(function(answer){
-		if(answer.create === "a") {
-			//prints data from log.txt
-			fs.readFile('log.txt', 'utf-8', function (err, data) {
-				console.log(data);
-			})
+			name: "options",
+			message: "Do you want to make cards or view cards? (m/v)"
 		}
-		else if (answer.person === "u") {
-			//Prompts for new user info
-			inquirer.prompt([
-				{
-					name: "name",
-					message: "What is your name?"
-				},
-				{
-					name: "location",
-					message: "Weather for what location?"
-				}
-			]).then(function(userInfo) {
-				// creates new user
-				var newUser = new User (userInfo.name, userInfo.location);
-				weatherApp.getWeather(userInfo.location);
-				newUser.logData();
-			});
+	]).then(function(response) {
+		if (response.options === "m") {
+			getCardType();
+		}
+		if (response.options === "v") {
+			viewCards.viewType();
 		}
 	})	
-}		
+}
+
+// Asks user whether its a basic card or cloze card
+var getCardType = function () {
+	inquirer.prompt([
+		{
+			name: "cardType",
+			message: "Would you like to make a Basic Card or a Cloze Card? (b/c)"
+		}
+	]).then(function(answer) {
+		if (answer.cardType === "b") {
+			basicCards.createBasicCard();
+		}
+		if (answer.cardType === "c") {
+			clozeCards.createClozeCard();
+		}
+ 	});
+};
+
+createCard();
 
 
-
-userOrAdmin();
