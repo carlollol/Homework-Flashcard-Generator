@@ -6,9 +6,9 @@
 
 ## Requirements
 
-- Create Constructs for:
-    -- Basic Cards
-    -- Cloze Cards
+- Create Constructs for
+-- Basic Cards
+-- Cloze Cards
 
 ## Technologies Used
 
@@ -17,7 +17,7 @@
 
 ## Code Explanation
 
-- Using the npm installation for *inquirer*, it will enable the application to prompt users with two options:
+- Using the npm installation for *inquirer*, it will enable the application to prompt users with two options
 
     -- Make Cards
         --- Basic Cards or Cloze Cards
